@@ -1,0 +1,94 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package basicCompetitiveDiceGame;
+import java.util.Random;
+import java.util.Scanner;
+/**
+ *
+ * @author Erik Perse
+ */
+public class BasicCompetitiveDiceGame {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        //Random diceRoller = new Random();
+        int[] hiddenRolls = new int[3];
+        int visibleRoll;
+        Scanner inputReader = new Scanner(System.in); 
+        int rollTotal;
+        int compRoll;
+        
+        String inputAnswer = null; 
+        //Talk to player
+        System.out.println("Welcome to Dragon Dice");
+        
+        hiddenRolls[0] = diceRoller();
+        hiddenRolls[1] = diceRoller();
+        hiddenRolls[2] = diceRoller();
+        visibleRoll = diceRoller();
+        
+ 
+        System.out.println("Your hidden rolls are: "+ hiddenRolls[0]+", "+hiddenRolls[1]
+                                        +", "+hiddenRolls[2]);
+        System.out.println("Your public roll is: " + visibleRoll);
+        
+        System.out.println("Would you like to keep your public roll? (y/n)");
+    
+        inputAnswer = inputReader.nextLine();
+        while((inputAnswer != "y") || (inputAnswer != "n"))
+        {
+        System.out.println("Would you like to keep your public roll? (y/n)");
+        inputAnswer = inputReader.nextLine();
+       
+        }
+        if(inputAnswer == "y")
+        {
+            rollTotal = hiddenRolls[0] + hiddenRolls[1] + hiddenRolls[2] + visibleRoll;
+        }
+        
+        else{
+            rollTotal = hiddenRolls[0] + hiddenRolls[1] + hiddenRolls[2];
+        }
+        System.out.println("Your total is: "+rollTotal);
+        
+        //computer goes
+        
+        compRoll = diceRoller() + diceRoller() + diceRoller(); 
+        
+        if (compRoll <= 14)
+        {
+            compRoll = compRoll + 3;
+            
+        }
+        if((compRoll >= rollTotal) || (rollTotal > 18))
+            {
+                if(rollTotal > 18){
+                    System.out.println("You busted by going over 18!");
+                }
+                System.out.println("The House wins with a total of: " + compRoll);
+                System.out.println("Better luck next time!");
+            }
+        else
+                {
+                    System.out.println("You beat the house with a roll of "+rollTotal+" vs "+compRoll+"!");
+                }
+        
+        
+        
+    }
+    
+
+//this method creates a random int from 1 to 6 (6 sided die)
+public static int diceRoller()
+{
+    Random diceRoller = new Random();
+    int i = diceRoller.nextInt(6)+1;
+    return i;
+}
+
+}
