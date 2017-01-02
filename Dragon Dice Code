@@ -11,19 +11,18 @@ import java.util.Scanner;
  * @author Erik Perse
  */
 public class BasicCompetitiveDiceGame {
-
+       
+       int rollTotal;
+       int compRoll;
+       int[] hiddenRolls = new int[3];
+       int visibleRoll;
+       String inputAnswer = null;
+       Scanner inputReader = new Scanner(System.in)
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        //Random diceRoller = new Random();
-        int[] hiddenRolls = new int[3];
-        int visibleRoll;
-        Scanner inputReader = new Scanner(System.in); 
-        int rollTotal;
-        int compRoll;
         
-        String inputAnswer = null; 
         //Talk to player
         System.out.println("Welcome to Dragon Dice");
         
@@ -38,14 +37,10 @@ public class BasicCompetitiveDiceGame {
         System.out.println("Your public roll is: " + visibleRoll);
         
         System.out.println("Would you like to keep your public roll? (y/n)");
-    
-        inputAnswer = inputReader.nextLine();
-        while((inputAnswer != "y") || (inputAnswer != "n"))
-        {
-        System.out.println("Would you like to keep your public roll? (y/n)");
-        inputAnswer = inputReader.nextLine();
-       
-        }
+        
+        inputAnswer = checkAnswer();
+        
+        
         if(inputAnswer == "y")
         {
             rollTotal = hiddenRolls[0] + hiddenRolls[1] + hiddenRolls[2] + visibleRoll;
@@ -91,4 +86,12 @@ public static int diceRoller()
     return i;
 }
 
+public String checkAnswer(){
+        
+        inputAnswer = inputReader.nextLine();
+        if ((inputAnswer != "y") || (inputAnswer != "n"))
+        {
+        checkAnswer();
+        }
+}
 }
